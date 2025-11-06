@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - SmartAdmin Login Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a0d2e 0%, #2d1846 50%, #1a0d2e 100%);
+            color: #fff;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(60, 36, 106, 0.4) 0%, rgba(45, 24, 70, 0.4) 100%);
+            padding: 50px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(199, 164, 255, 0.2);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #c7a4ff;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .last-updated {
+            color: #b48cff;
+            font-size: 0.9em;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: #c7a4ff;
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid rgba(199, 164, 255, 0.3);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #b48cff;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #e0d4ff;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style-position: inside;
+            margin-bottom: 20px;
+            color: #e0d4ff;
+        }
+
+        li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+
+        .highlight {
+            background: rgba(162, 89, 255, 0.2);
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #c7a4ff;
+            font-weight: 600;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #c7a4ff;
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #a259ff;
+        }
+
+        .contact-info {
+            background: rgba(45, 24, 70, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border-left: 4px solid #a259ff;
+        }
+
+        .contact-info a {
+            color: #c7a4ff;
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            color: #a259ff;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <h1>Privacy Policy</h1>
+        <p class="last-updated"><strong>Last Updated:</strong> November 2025</p>
+
+        <p>SmartAdmin Login Assistant ("the Extension") is committed to protecting your privacy. This privacy policy explains how we handle your data.</p>
+
+        <h2>1. Data Collection and Usage</h2>
+        <p>The Extension collects and stores the following data <span class="highlight">locally in your browser</span>:</p>
+        <ul>
+            <li><strong>Username and Password:</strong> Automatically saved when you log in to SmartAdmin sites</li>
+            <li><strong>TOTP Secret:</strong> Saved from your profile page for two-factor authentication code generation</li>
+            <li><strong>Extension Settings:</strong> Your preferences including:
+                <ul style="margin-top: 10px;">
+                    <li>Auto-login toggle</li>
+                    <li>Auto-fill OTP toggle</li>
+                    <li>Remember credentials setting</li>
+                    <li>Clear credentials after login option</li>
+                </ul>
+            </li>
+            <li><strong>Login Status:</strong> Tracks whether you're currently logged in and which environment (staging/production)</li>
+        </ul>
+
+        <h2>2. Data Storage</h2>
+        <p>All data is stored <span class="highlight">exclusively in your browser</span> using Chrome's secure storage API (<code>chrome.storage.local</code>).</p>
+        
+        <h3>Important Points:</h3>
+        <ul>
+            <li>❌ Data is <strong>NOT</strong> transmitted to any external servers</li>
+            <li>❌ Data is <strong>NOT</strong> shared with any third parties</li>
+            <li>❌ Data is <strong>NOT</strong> sold, rented, or monetized in any way</li>
+            <li>❌ We do <strong>NOT</strong> use analytics, tracking, or advertising services</li>
+            <li>✅ All data remains <strong>on your device only</strong></li>
+            <li>✅ You have <strong>full control</strong> and can clear data anytime</li>
+        </ul>
+
+        <h2>3. How Data is Used</h2>
+        <p>The Extension uses your stored data exclusively for:</p>
+        <ul>
+            <li><strong>Auto-filling login forms</strong> on SmartAdmin pages when enabled</li>
+            <li><strong>Generating TOTP codes</strong> for two-factor authentication</li>
+            <li><strong>Deep-link authentication</strong> to launch the SmartAdmin desktop application with credentials</li>
+            <li><strong>Applying your preferences</strong> (auto-login, cleanup policies, etc.)</li>
+        </ul>
+
+        <h2>4. Website Access</h2>
+        <p>The Extension only accesses the following domains:</p>
+        <ul>
+            <li><code>stg.uparcel.sg</code> - Staging environment</li>
+            <li><code>www.uparcel.sg</code> - Production environment</li>
+        </ul>
+        
+        <p>Specifically, the Extension interacts with:</p>
+        <ul>
+            <li>Login pages (<code>/admin/login</code>) - To save and fill credentials</li>
+            <li>OTP pages (<code>/admin/otp/</code>) - To generate and fill TOTP codes</li>
+            <li>Profile pages (<code>/admin/profile/</code>) - To save TOTP secrets</li>
+            <li>Admin home pages (<code>/admin/</code>) - For post-login actions</li>
+        </ul>
+
+        <h2>5. Third-Party Services</h2>
+        <p>This Extension does <span class="highlight">NOT</span> use:</p>
+        <ul>
+            <li>Analytics services (e.g., Google Analytics)</li>
+            <li>Tracking or advertising networks</li>
+            <li>External APIs or cloud services</li>
+            <li>Social media integrations</li>
+        </ul>
+        <p>The Extension operates <strong>entirely offline</strong> and <strong>client-side</strong>.</p>
+
+        <h2>6. Data Deletion</h2>
+        <p>You can delete all stored data at any time using any of these methods:</p>
+
+        <h3>Method 1: Extension Settings</h3>
+        <ol>
+            <li>Click the Extension icon in your browser toolbar</li>
+            <li>Click the gear icon (⚙️) to open Settings</li>
+            <li>Click "Clear" next to "Clear Credentials"</li>
+        </ol>
+
+        <h3>Method 2: Uninstall Extension</h3>
+        <p>Uninstalling the Extension automatically removes all stored data from your browser.</p>
+
+        <h3>Method 3: Browser Settings</h3>
+        <p>You can also clear extension data through Chrome's site settings for the Extension.</p>
+
+        <h2>7. Permissions Explanation</h2>
+        <p>The Extension requests the following permissions:</p>
+
+        <h3>Storage Permission</h3>
+        <p><strong>Purpose:</strong> Required to save your credentials, TOTP secret, and settings locally in your browser's secure storage.</p>
+
+        <h3>Host Permissions (stg.uparcel.sg, www.uparcel.sg)</h3>
+        <p><strong>Purpose:</strong> Required to:</p>
+        <ul>
+            <li>Detect when you're on SmartAdmin login pages</li>
+            <li>Auto-save credentials when you log in</li>
+            <li>Auto-fill username, password, and TOTP codes</li>
+            <li>Enable deep-link login to the desktop application</li>
+        </ul>
+
+        <h2>8. Security</h2>
+        <p>We take security seriously:</p>
+        <ul>
+            <li>All data is stored using Chrome's secure storage API</li>
+            <li>Credentials are stored locally and never transmitted</li>
+            <li>The Extension uses HTTPS-only connections</li>
+            <li>Source code is available on GitHub for transparency</li>
+            <li>Regular updates to address security issues</li>
+        </ul>
+
+        <h2>9. Children's Privacy</h2>
+        <p>This Extension is not directed at children under 13. We do not knowingly collect data from children.</p>
+
+        <h2>10. Changes to This Privacy Policy</h2>
+        <p>We may update this privacy policy from time to time. When we do:</p>
+        <ul>
+            <li>The "Last Updated" date at the top will be changed</li>
+            <li>Material changes will be highlighted in the Extension's update notes</li>
+            <li>Continued use of the Extension after changes constitutes acceptance</li>
+        </ul>
+
+        <h2>11. Open Source</h2>
+        <p>This Extension is open source under the MIT License. You can review the complete source code on GitHub to verify our privacy practices.</p>
+
+        <h2>12. Your Rights</h2>
+        <p>You have the right to:</p>
+        <ul>
+            <li>Access all data stored by the Extension (view in Extension popup)</li>
+            <li>Delete your data at any time (via Settings or uninstall)</li>
+            <li>Disable specific features (auto-login, auto-fill, etc.)</li>
+            <li>Stop using the Extension at any time</li>
+        </ul>
+
+        <h2>13. Contact Information</h2>
+        <div class="contact-info">
+            <p>If you have questions, concerns, or requests regarding this privacy policy or the Extension, please contact:</p>
+            <p><strong>Developer:</strong> TEE YU CHENG</p>
+            <p><strong>GitHub:</strong> <a href="https://github.com/yourusername/smartadmin-app-login-extension" target="_blank">View Repository</a></p>
+            <p><strong>Issues:</strong> <a href="https://github.com/yourusername/smartadmin-app-login-extension/issues" target="_blank">Report on GitHub</a></p>
+        </div>
+
+        <h2>14. Consent</h2>
+        <p>By installing and using SmartAdmin Login Assistant, you acknowledge that you have read and understood this privacy policy and agree to its terms.</p>
+
+        <p style="margin-top: 40px; text-align: center; color: #b48cff;">
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </p>
+    </div>
+</body>
+</html>

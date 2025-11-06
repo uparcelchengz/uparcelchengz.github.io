@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartAdmin Login Assistant - Chrome Extension</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a0d2e 0%, #2d1846 50%, #1a0d2e 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-animation span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(162, 89, 255, 0.1);
+            animation: float 15s infinite;
+            border-radius: 50%;
+        }
+
+    /* Individual positions/durations will be set dynamically by JS for denser, randomized bubbles */
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            25% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+            75% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) scale(2);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Header */
+        header {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .logo-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #c7a4ff;
+        }
+
+        .install-btn {
+            background: linear-gradient(90deg, #a259ff, #6a3fcf);
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(162, 89, 255, 0.3);
+        }
+
+        .install-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 25px rgba(162, 89, 255, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 100px 5% 80px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #c7a4ff, #a259ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3em;
+            color: #b48cff;
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            animation: fadeInUp 1.4s ease-out;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1.6s ease-out;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #a259ff, #6a3fcf);
+            color: #fff;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(162, 89, 255, 0.4);
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 30px rgba(162, 89, 255, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #c7a4ff;
+            padding: 15px 40px;
+            border: 2px solid #c7a4ff;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(199, 164, 255, 0.1);
+            transform: translateY(-3px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: #c7a4ff;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(60, 36, 106, 0.6) 0%, rgba(45, 24, 70, 0.6) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(199, 164, 255, 0.2);
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(162, 89, 255, 0.3);
+            border-color: rgba(199, 164, 255, 0.5);
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #c7a4ff;
+        }
+
+        .feature-card p {
+            color: #b48cff;
+            line-height: 1.6;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, rgba(45, 24, 70, 0.3) 0%, rgba(26, 13, 46, 0.3) 100%);
+        }
+
+        .steps {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .step {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .step:nth-child(odd) {
+            animation: slideInLeft 1s ease-out;
+        }
+
+        .step:nth-child(even) {
+            animation: slideInRight 1s ease-out;
+            flex-direction: row-reverse;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #a259ff, #6a3fcf);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(162, 89, 255, 0.4);
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #c7a4ff;
+        }
+
+        .step-content p {
+            color: #b48cff;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 5%;
+            text-align: center;
+            border-top: 1px solid rgba(199, 164, 255, 0.2);
+            margin-top: 80px;
+        }
+
+        footer p {
+            color: #b48cff;
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: #c7a4ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #a259ff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1.1em;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .step {
+                flex-direction: column !important;
+                text-align: center;
+            }
+
+            .logo-text {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background (populated by JS for denser/random bubbles) -->
+    <div class="bg-animation" aria-hidden="true"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <img src="./logo.png" alt="SmartAdmin Logo" class="logo">
+            <div class="logo-text">SmartAdmin Login Assistant</div>
+        </div>
+        <a href="#" class="install-btn">Add to Chrome</a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Seamless Browser-to-App Login</h1>
+        <p>Enable your SmartAdmin desktop app to accept login requests directly from your browser. Optional auto-save and TOTP features included for convenience.</p>
+        <div class="hero-buttons">
+            <a href="#" class="btn-primary">Install Extension</a>
+            <a href="https://github.com/yourusername/smartadmin-app-login-extension" class="btn-secondary" target="_blank">View on GitHub</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <h2 class="section-title">Key Features</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔗</div>
+                <h3>Deep-Link Login</h3>
+                <p>Launch and authenticate with the SmartAdmin desktop app directly from your browser using custom protocol URLs.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔐</div>
+                <h3>Optional Auto-Save</h3>
+                <p>Automatically save username and password for quick access. All data stored locally in your browser.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔢</div>
+                <h3>TOTP Generation</h3>
+                <p>Generate and auto-fill two-factor authentication codes for faster logins. Fully configurable.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h3>Configurable Settings</h3>
+                <p>Control auto-login, credential retention, daily cleanup, and more through an intuitive settings panel.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3>Environment Support</h3>
+                <p>Works with both staging and production SmartAdmin environments. Automatically detects your current environment.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Privacy First</h3>
+                <p>All credentials stored locally in chrome.storage. No external servers, no data transmission.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <h2 class="section-title">How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Install the Extension</h3>
+                    <p>Add SmartAdmin Login Assistant to your Chrome browser from the Chrome Web Store.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Save Your Credentials</h3>
+                    <p>Log in to SmartAdmin through your browser. The extension will offer to save your credentials and TOTP secret.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Configure Your Preferences</h3>
+                    <p>Open the extension popup to adjust settings like auto-login, credential retention, and cleanup policies.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h3>Launch Desktop App</h3>
+                    <p>Click the "Login to SmartAdmin App" button to send credentials to your desktop application via deep-link.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 TEE YU CHENG. All rights reserved.</p>
+        <p>Licensed under the <a href="https://github.com/uparcelchengz/smartadmin-app-login-extension/blob/main/LICENSE" target="_blank">MIT License</a></p>
+        <p>
+            <a href="https://github.com/uparcelchengz/smartadmin-app-login-extension" target="_blank">GitHub</a> • 
+            <a href="privacy-policy.html">Privacy Policy</a> • 
+            <a href="https://github.com/uparcelchengz/smartadmin-app-login-extension/issues">Support</a>
+        </p>
+    </footer>
+
+    <!-- Bubble generator script: creates many randomized floating bubbles for a denser "gas" background -->
+    <script>
+        (function() {
+            const container = document.querySelector('.bg-animation');
+            if (!container) return;
+
+            const bubbleCount = 48; // tweak this number to increase/decrease bubble density
+
+            for (let i = 0; i < bubbleCount; i++) {
+                const s = document.createElement('span');
+
+                // Random size between 8 and 42px
+                const size = Math.round(Math.random() * 34) + 8;
+                s.style.width = size + 'px';
+                s.style.height = size + 'px';
+
+                // Random horizontal position
+                s.style.left = Math.random() * 100 + '%';
+
+                // Start slightly below the viewport
+                s.style.bottom = (Math.random() * -20 - 10) + 'vh';
+
+                // Slightly varied opacity
+                const alpha = (Math.random() * 0.6 + 0.05).toFixed(2);
+                s.style.background = `rgba(162,89,255,${alpha})`;
+
+                // Random animation duration and delay for variety
+                const duration = (Math.random() * 18 + 8).toFixed(2); // 8s - 26s
+                const delay = (Math.random() * -20).toFixed(2); // negative delays for staggered starts
+                s.style.animation = `float ${duration}s linear ${delay}s infinite`;
+
+                s.style.position = 'absolute';
+                s.style.borderRadius = '50%';
+                s.style.pointerEvents = 'none';
+
+                container.appendChild(s);
+            }
+        })();
+    </script>
+
+</body>
+</html>
