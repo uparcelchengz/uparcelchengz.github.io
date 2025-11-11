@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Install SmartAdmin Login Assistant</title>
+    <title>Check Installation Status</title>
     <style>
         * {
             margin: 0;
@@ -189,8 +189,8 @@
         }
 
         .browser-icon {
-            width: 64px;
-            height: 64px;
+            width: 100px;
+            height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -202,12 +202,11 @@
         }
 
         .browser-icon img {
-            width: 48px;
-            height: 48px;
+            width: 100px;
+            height: 100px;
             object-fit: contain;
             display: block;
         }
-        
 
         .browser-card h2 {
             font-size: 1.8em;
@@ -296,36 +295,35 @@
             <img src="./logo.png" alt="SmartAdmin Logo" class="logo">
             <div class="logo-text">SmartAdmin Login Assistant</div>
         </div>
-    <a href="#" class="back-btn" onclick="window.history.back(); return false;">◀️ Back</a>
     </header>
 
     <!-- Main Content -->
     <div class="container">
         <div class="install-header">
-            <h1>Choose Your Browser</h1>
-            <p>Select your preferred browser to install the SmartAdmin Login Assistant extension.</p>
+            <h1>Have you installed the SmartAdmin Login Assistant?</h1>
+            <p></p>
         </div>
 
-        <!-- Browser Options -->
+        <!-- Yes/No Options -->
         <div class="browser-grid">
             <!-- Chrome Option -->
-            <a href="https://chromewebstore.google.com/detail/smartadmin-login-assistan/iphehogkekejaflgknaofmndmihgcfle" target="_blank" class="browser-card" aria-label="Install for Chrome">
+            <a href="https://uparcelchengz.github.io/smartadmin/extension/how-to-use.html" target="_blank" class="browser-card" aria-label="Installed">
                 <div class="browser-icon">
-                    <img src="https://www.google.com/chrome/static/images/favicons/favicon-96x96.png" alt="Chrome Logo">
+                    <img src="./screenshots/yes.jpg" alt="Yes">
                 </div>
-                <h2>Chrome</h2>
-                <p>Install from the Chrome Web Store</p>
-                <span class="install-link">Install for Chrome</span>
+                <h2>Yes!</h2>
+                <p>I've installed the SmartAdmin Login Assistant.</p>
+                <span class="install-link">How to use it?</span>
             </a>
 
             <!-- Firefox Option -->
-            <a href="https://addons.mozilla.org/en-US/firefox/addon/smartadmin-login-assistant/" target="_blank" class="browser-card" aria-label="Install for Firefox">
+            <a href="https://uparcelchengz.github.io/smartadmin/extension/install.html" target="_blank" class="browser-card" aria-label="Not Installed">
                 <div class="browser-icon">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/250px-Firefox_logo%2C_2019.svg.png" alt="Firefox Logo">
+                    <img src="./screenshots/no.png" alt="No">
                 </div>
-                <h2>Firefox</h2>
-                <p>Install from the Firefox Add-ons Store</p>
-                <span class="install-link">Install for Firefox</span>
+                <h2>No</h2>
+                <p>I've not installed the SmartAdmin Login Assistant.</p>
+                <span class="install-link">Install Now!</span>
             </a>
         </div>
     </div>
