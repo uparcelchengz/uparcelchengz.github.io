@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Install SmartAdmin Login Assistant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a0d2e 0%, #2d1846 50%, #1a0d2e 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-animation {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-animation span {
+            position: absolute;
+            display: block;
+            width: 20px;
+            height: 20px;
+            background: rgba(162, 89, 255, 0.1);
+            animation: float 15s infinite;
+            border-radius: 50%;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            25% {
+                opacity: 0.8;
+            }
+            50% {
+                opacity: 1;
+            }
+            75% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) scale(2);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Header */
+        header {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .logo-text {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #c7a4ff;
+        }
+
+        .back-btn {
+            background: transparent;
+            color: #c7a4ff;
+            padding: 10px 20px;
+            border: 2px solid #c7a4ff;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(199, 164, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 5%;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .install-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .install-header h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #c7a4ff, #a259ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .install-header p {
+            font-size: 1.2em;
+            color: #b48cff;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Browser Options Grid */
+        .browser-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .browser-card {
+            background: linear-gradient(135deg, rgba(60, 36, 106, 0.6) 0%, rgba(45, 24, 70, 0.6) 100%);
+            padding: 40px 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(199, 164, 255, 0.2);
+            transition: all 0.3s ease;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .browser-card:nth-child(1) { animation: fadeInUp 1.2s ease-out 0.1s both; }
+        .browser-card:nth-child(2) { animation: fadeInUp 1.2s ease-out 0.3s both; }
+
+        .browser-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(162, 89, 255, 0.3);
+            border-color: rgba(199, 164, 255, 0.5);
+        }
+
+        .browser-icon {
+                width: 64px;
+                height: 64px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                background: rgba(162, 89, 255, 0.08);
+                box-shadow: 0 2px 12px rgba(162, 89, 255, 0.12);
+                margin-bottom: 10px;
+                overflow: hidden;
+            }
+
+            .browser-icon img {
+                width: 48px;
+                height: 48px;
+                object-fit: contain;
+                display: block;
+            }
+        }
+
+        .browser-card h2 {
+            font-size: 1.8em;
+            color: #c7a4ff;
+            margin: 0;
+        }
+
+        .browser-card p {
+            color: #b48cff;
+            line-height: 1.5;
+            font-size: 0.95em;
+        }
+
+        .install-link {
+            background: linear-gradient(90deg, #a259ff, #6a3fcf);
+            color: #fff;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(162, 89, 255, 0.3);
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .install-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(162, 89, 255, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 5%;
+            text-align: center;
+            border-top: 1px solid rgba(199, 164, 255, 0.2);
+            margin-top: 80px;
+        }
+
+        footer p {
+            color: #b48cff;
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: #c7a4ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #a259ff;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .install-header h1 {
+                font-size: 2.2em;
+            }
+
+            .install-header p {
+                font-size: 1em;
+            }
+
+            .browser-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .logo-text {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation" aria-hidden="true"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <img src="./logo.png" alt="SmartAdmin Logo" class="logo">
+            <div class="logo-text">SmartAdmin Login Assistant</div>
+        </div>
+        <a href="index.html" class="back-btn">◀️ Back</a>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="install-header">
+            <h1>Choose Your Browser</h1>
+            <p>Select your preferred browser to install the SmartAdmin Login Assistant extension.</p>
+        </div>
+
+        <!-- Browser Options -->
+        <div class="browser-grid">
+            <!-- Chrome Option -->
+            <a href="https://chromewebstore.google.com/detail/smartadmin-login-assistan/iphehogkekejaflgknaofmndmihgcfle" target="_blank" class="browser-card" aria-label="Install for Chrome">
+                <div class="browser-icon">
+                    <img src="https://www.google.com/chrome/static/images/favicons/favicon-96x96.png" alt="Chrome Logo">
+                </div>
+                <h2>Chrome</h2>
+                <p>Install from the Chrome Web Store</p>
+                <span class="install-link">Install for Chrome</span>
+            </a>
+
+            <!-- Firefox Option -->
+            <a href="https://addons.mozilla.org/en-US/firefox/addon/smartadmin-login-assistant/" target="_blank" class="browser-card" aria-label="Install for Firefox">
+                <div class="browser-icon">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/Firefox_logo%2C_2019.svg/250px-Firefox_logo%2C_2019.svg.png" alt="Firefox Logo">
+                </div>
+                <h2>Firefox</h2>
+                <p>Install from the Firefox Add-ons Store</p>
+                <span class="install-link">Install for Firefox</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 TEE YU CHENG. All rights reserved.</p>
+        <p>Licensed under the <a href="https://github.com/uparcelchengz/smartadmin-app-login-extension/blob/main/LICENSE" target="_blank">MIT License</a></p>
+        <p>
+            <a href="https://github.com/uparcelchengz/smartadmin-app-login-extension" target="_blank">GitHub</a> • 
+            <a href="privacy-policy.html">Privacy Policy</a> • 
+            <a href="https://github.com/uparcelchengz/smartadmin-app-login-extension/issues">Support</a>
+        </p>
+    </footer>
+
+    <!-- Bubble generator script -->
+    <script>
+        (function() {
+            const container = document.querySelector('.bg-animation');
+            if (!container) return;
+
+            const bubbleCount = 48;
+
+            for (let i = 0; i < bubbleCount; i++) {
+                const s = document.createElement('span');
+
+                const size = Math.round(Math.random() * 34) + 8;
+                s.style.width = size + 'px';
+                s.style.height = size + 'px';
+
+                s.style.left = Math.random() * 100 + '%';
+                s.style.bottom = (Math.random() * -20 - 10) + 'vh';
+
+                const alpha = (Math.random() * 0.6 + 0.05).toFixed(2);
+                s.style.background = `rgba(162,89,255,${alpha})`;
+
+                const duration = (Math.random() * 18 + 8).toFixed(2);
+                const delay = (Math.random() * -20).toFixed(2);
+                s.style.animation = `float ${duration}s linear ${delay}s infinite`;
+
+                s.style.position = 'absolute';
+                s.style.borderRadius = '50%';
+                s.style.pointerEvents = 'none';
+
+                container.appendChild(s);
+            }
+        })();
+    </script>
+
+</body>
+</html>
