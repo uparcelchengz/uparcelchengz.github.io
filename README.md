@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://www.uparcel.sg/static/uparceldelivery/img/logo/up_logo.ae64a211e862.png" alt="MXHL Pte Ltd Logo" width="160" />
+</p>
+
 # Internship Portfolio: MXHL Pte Ltd (uParcel)
 
 This is a static website documenting my internship experience at MXHL Pte Ltd (uParcel).
